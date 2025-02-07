@@ -31,7 +31,7 @@ export default function RightSide() {
     ]
 
     return (
-        <div className='bg-gray-50 px-4'>
+        <div className='bg-gray-50 px-4`'>
             {/* first child */}
             <div className='flex items-center justify-between font-semibold opacity-70'>
                 <p>Suggested for you</p>
