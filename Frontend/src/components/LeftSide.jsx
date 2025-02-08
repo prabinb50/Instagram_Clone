@@ -53,17 +53,17 @@ export default function LeftSide() {
     ]
 
     return (
-        <div className='bg-gray-50 px-4'>
+        <div className='bg-gray-50 px-4 pt-10 '>
             {/* first child */}
-            <p>Instagram</p>
+            <p className='font-semibold text-2xl cursor-pointer px-2'>Instagram</p>
 
             {/* second child */}
-            <div className='flex flex-col h-[96vh] justify-between'>
+            <div className='flex flex-col h-[90vh] justify-between'>
                 {/* upper child */}
-                <div>
+                <div className='space-y-3 mt-8 text-sm'>
                     {
                         linksTops.map((eachItem, index) => (
-                            <div className='flex items-center gap-2 font-semibold py-2 hover:bg-gray-200 cursor-pointer px-2 rounded-md opacity-80' key={index}>
+                            <div className='flex items-center gap-2 py-2 px-2 hover:bg-gray-200 cursor-pointer rounded-md' key={index}>
                                 {eachItem.icon}
                                 <p>{eachItem.title}</p>
                             </div>
@@ -72,10 +72,10 @@ export default function LeftSide() {
                 </div>
 
                 {/* lower child */}
-                <div>
+                <div className='text-sm space-y-3 '>
                     {
                         linksBottoms.map((eachItem, index) => (
-                            <div className='flex items-center gap-2 font-semibold py-2 hover:bg-gray-200 cursor-pointer px-2 rounded-md opacity-80' key={index}>
+                            <div className='flex items-center gap-2 py-2 px-2 hover:bg-gray-200 cursor-pointer rounded-md' key={index}>
                                 {eachItem.icon}
                                 <p>{eachItem.title}</p>
                             </div>
@@ -84,5 +84,6 @@ export default function LeftSide() {
                 </div>
             </div>
         </div>
+
     )
 }

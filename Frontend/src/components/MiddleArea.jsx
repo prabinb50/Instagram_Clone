@@ -45,8 +45,8 @@ export default function MiddleArea() {
         }
     ]
     return (
-        < div >
-            <div className='flex gap-4 overflow-x-scroll'>
+        < div className='pt-10'>
+            <div className='flex gap-4 overflow-x-scroll '>
                 {
                     stories.map((eachStory, index) => (
                         <div key={index}>
