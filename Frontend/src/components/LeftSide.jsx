@@ -75,7 +75,7 @@ export default function LeftSide() {
                 <div className='text-sm space-y-3 '>
                     {
                         linksBottoms.map((eachItem, index) => (
-                            <div className='flex items-center gap-2 py-2 px-2 hover:bg-gray-200 cursor-pointer rounded-md' key={index}>
+                            <div className='flex items-center gap-2 py-2 hover:bg-gray-200 cursor-pointer rounded-md' key={index}>
                                 {eachItem.icon}
                                 <p>{eachItem.title}</p>
                             </div>
