@@ -2,7 +2,6 @@ import React from 'react'
 import LeftSide from './components/LeftSide'
 import MiddleArea from './components/MiddleArea'
 import RightSide from './components/RightSide'
-import MobileMenu from './components/MobileMenu'
 
 export default function App() {
   return (
@@ -20,8 +19,6 @@ export default function App() {
           <RightSide />
         </div>
       </div>
-
-      <MobileMenu></MobileMenu>
     </div>
 
   )

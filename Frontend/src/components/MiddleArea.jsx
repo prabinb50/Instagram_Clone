@@ -48,10 +48,10 @@ export default function MiddleArea() {
             storyImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
             username: "Prabin_Joshi"
         },
-        
+
     ]
     return (
-        < div className='pt-10'>
+        < div className='pt-2 md:pt-5'>
             <div className='flex gap-4 overflow-x-scroll px-2 '>
                 {
                     stories.map((eachStory, index) => (
