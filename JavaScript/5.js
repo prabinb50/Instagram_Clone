@@ -1,4 +1,4 @@
-//  DESTRUCTURING
+// DESTRUCTURING
 // Extracting the values from object or array from the parent variables.
 const loki = {
     username: "lokichaulagain",
