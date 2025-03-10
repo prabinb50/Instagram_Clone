@@ -3,6 +3,11 @@
 // -> In early days, js was only used in browser for interactivity.
 // -> Later js was used in sever side  also after thee intoduction of node.js.
 
+
+// This is Loki Chaulagain From Tikapur Kaialai
+
+
+
 // 2. VARIABLES IN JS
 // -> Variables are the containers to store the data values.
 // -> In js, we declare variables using var, let, and const.
