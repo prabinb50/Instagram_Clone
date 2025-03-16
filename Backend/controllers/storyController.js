@@ -1,5 +1,5 @@
 import cloudinary from "../lib/cloudinaryConfig.js";
-import { Story } from "../models/storyModel"
+import { Story } from "../models/storyModel.js"
 
 
 // Create
@@ -22,7 +22,7 @@ export const createStory = async (req, res) => {
     }
 }
 
-// Read All
+// Get all stories 
 export const getAllStory = async (req, res) => {
     try {
         const stories = await Story.find();
@@ -38,10 +38,16 @@ export const getAllStory = async (req, res) => {
     }
 }
 
-// Read By Id
+// Get story by id
 export const getStoryById = async (req, res) => {
     try {
-        const singleStory = await Story.findById(req.params.id)
+        const singleStory = await Story.findById(req.params.id);
+        // if story is not found
+        if (!singleStory) {
+            return res.status(404).json({
+                message: "Story not found"
+            })
+        }
         return res.status(201).json({
             message: "Single story fetched successfully",
             story: singleStory
@@ -54,12 +60,21 @@ export const getStoryById = async (req, res) => {
     }
 }
 
-// Delete By Id
+// delete story by id
 export const deleteStoryById = async (req, res) => {
     try {
-        const deletedStory = await Story.findByIdAndDelete(req.params.id)
+        const checkStory = await Story.findById(req.params.id);
+        // if story is not found
+        if (!checkStory) {
+            return res.status(404).json({
+                message: "Story not found"
+            });
+        }
+
+        // Proceed with deletion only if the product exists
+        const deletedStory = await Story.findByIdAndDelete(req.params.id);
         return res.status(200).json({
-            message: "Single story delete successfully",
+            message: "Single story deleted successfully",
             story: deletedStory
         })
     } catch (error) {

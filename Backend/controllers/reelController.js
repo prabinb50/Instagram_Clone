@@ -59,7 +59,7 @@ export const deleteReelById = async (req, res) => {
     try {
         const deletedReel = await Reel.findByIdAndDelete(req.params.id)
         return res.status(200).json({
-            message: "Single Reel delete successfully",
+            message: "Single Reel deleted successfully",
             reel: deletedReel
         })
     } catch (error) {
