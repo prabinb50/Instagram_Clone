@@ -54,6 +54,25 @@ export const getPostById = async (req, res) => {
     }
 }
 
+// update post by id
+export const updatePostById = async (req, res) => {
+    try {
+        const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        return res.status(200).json({
+            message: "Single post updated successfully",
+            data: updatedPost,
+            status: OK,
+            statusCode: 200,
+            updatedTime: new Date().getTime()
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: "Something went wrong",
+            error: error,
+        })
+    }
+}
+
 // delete post by id
 export const deletePostById = async (req, res) => {
     try {

@@ -1,11 +1,11 @@
 import express from "express";
+import { createReel, deleteReelById, getAllReel, getReelById } from "../controllers/reelController.js";
 
 const router = express.Router();
 
-router.post("/", somethingController);
-router.get("/", somethingController);
-router.get("/:id", somethingController);
-router.patch("/:id", somethingController);
-router.delete("/:id", somethingController);
+router.post("/", createReel);
+router.get("/", getAllReel);
+router.get("/:id", getReelById);
+router.delete("/:id", deleteReelById);
 
 export default router;

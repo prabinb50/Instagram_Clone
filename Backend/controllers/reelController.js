@@ -1,7 +1,6 @@
 import cloudinary from "../lib/cloudinaryConfig.js";
 import { Reel } from "../models/reelsModel.js";
 
-
 // Create
 export const createReel = async (req, res) => {
     try {
