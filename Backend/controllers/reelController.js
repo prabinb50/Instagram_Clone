@@ -4,10 +4,11 @@ import { Reel } from "../models/reelsModel.js";
 // Create
 export const createReel = async (req, res) => {
     try {
+        console.log(req.file);
         const file = req.file;
-        const cloudinaryResponse = cloudinary.uploader.upload(file.path);
+        const cloudinaryResponse = await cloudinary.uploader.upload(file.path);
 
-        const newlyCreatedReel = await new Reel.create({ ...req.body, video: cloudinaryResponse.secure_url }).save();
+        const newlyCreatedReel = await new Reel({ ...req.body, video: cloudinaryResponse.secure_url }).save();
 
         return res.status(201).json({
             message: "Reel created successfully",
@@ -16,7 +17,7 @@ export const createReel = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             message: "Something went wrong",
-            error: error
+            error: error.message
         })
     }
 }
@@ -56,6 +57,14 @@ export const getReelById = async (req, res) => {
 // Delete By Id
 export const deleteReelById = async (req, res) => {
     try {
+        const checkReel = await Reel.findById(req.params.id);
+        // if reel is not found
+        if (!checkReel) {
+            return res.status(404).json({
+                message: "Reel not found"
+            });
+        }
+
         const deletedReel = await Reel.findByIdAndDelete(req.params.id)
         return res.status(200).json({
             message: "Single Reel deleted successfully",

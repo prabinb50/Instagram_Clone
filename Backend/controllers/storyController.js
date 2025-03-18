@@ -6,9 +6,9 @@ import { Story } from "../models/storyModel.js"
 export const createStory = async (req, res) => {
     try {
         const file = req.file;
-        const cloudinaryResponse = cloudinary.uploader.upload(file.path);
+        const cloudinaryResponse = await cloudinary.uploader.upload(file.path);
 
-        const newlyCreatedStory = await new Story.create({ ...req.body, storyPicture: cloudinaryResponse.secure_url }).save();
+        const newlyCreatedStory = await new Story({ ...req.body, storyPicture: cloudinaryResponse.secure_url }).save();
 
         return res.status(201).json({
             message: "Story created successfully",
@@ -17,7 +17,7 @@ export const createStory = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             message: "Something went wrong",
-            error: error
+            error: error.message
         })
     }
 }

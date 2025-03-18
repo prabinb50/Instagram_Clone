@@ -6,9 +6,9 @@ import { Post } from "../models/postModel.js";
 export const createPost = async (req, res) => {
     try {
         const file = req.file;
-        const cloudinaryResponse = cloudinary.uploader.upload(file.path);
+        const cloudinaryResponse = await cloudinary.uploader.upload(file.path);
 
-        const newlyCreatedPost = await new Post.create({ ...req.body, postPicture: cloudinaryResponse.secure_url }).save();
+        const newlyCreatedPost = await new Post({ ...req.body, postPicture: cloudinaryResponse.secure_url }).save();
 
         return res.status(201).json({
             message: "Post created successfully",
@@ -61,14 +61,13 @@ export const updatePostById = async (req, res) => {
         return res.status(200).json({
             message: "Single post updated successfully",
             data: updatedPost,
-            status: OK,
             statusCode: 200,
             updatedTime: new Date().getTime()
         })
     } catch (error) {
         return res.status(500).json({
             message: "Something went wrong",
-            error: error,
+            error: error.message,
         })
     }
 }
@@ -76,6 +75,14 @@ export const updatePostById = async (req, res) => {
 // delete post by id
 export const deletePostById = async (req, res) => {
     try {
+        const checkPost = await Post.findById(req.params.id);
+        // if Post is not found
+        if (!checkPost) {
+            return res.status(404).json({
+                message: "Post not found"
+            });
+        }
+
         const deletedPost = await Post.findByIdAndDelete(req.params.id)
         return res.status(200).json({
             message: "Single post deleted successfully",
