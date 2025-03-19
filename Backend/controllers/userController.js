@@ -27,10 +27,10 @@ export const registerUser = async (req, res) => {
         }
 
         // 3. handle profilePicture upload
-        const cloudinaryResponse = cloudinary.uploader.upload(req.file.path);
+        const cloudinaryResponse = await cloudinary.uploader.upload(req.file.path);
 
         // 4. save the user to the database
-        const saveUser = await new User.create({ ...req.body, profilePicture: (await cloudinaryResponse).secure_url, password: hashedPassword }).save();
+        const saveUser = await new User({ ...req.body, profilePicture: cloudinaryResponse.secure_url, password: hashedPassword }).save();
         // if user is not saved
         if (!saveUser) {
             return res.status(404).json({
@@ -48,7 +48,7 @@ export const registerUser = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             message: "Internal server error",
-            error: error,
+            error: error.message,
             code: 500
         })
     }
@@ -103,7 +103,26 @@ export const loginUser = async (req, res) => {
     }
 }
 
-// 3. Get User By Id
+
+
+// 3. Get All Users
+export const getAllUser = async (req, res) => {
+    try {
+        const users = await User.find();
+        return res.status(200).json({
+            message: "All users fetched successfully",
+            data: users
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            error: error,
+            code: 500
+        })
+    }
+}
+
+// 4. Get User By Id
 export const getUserById = async (req, res) => {
     try {
         const singleUser = await User.findById(req.params.id);
@@ -114,23 +133,6 @@ export const getUserById = async (req, res) => {
                 message: "User doesnot exist matching the given id",
             })
         }
-    } catch (error) {
-        return res.status(500).json({
-            message: "Internal server error",
-            error: error,
-            code: 500
-        })
-    }
-}
-
-// 4. Get All Users
-export const getAllUser = async (req, res) => {
-    try {
-        const users = await User.find();
-        return res.status(200).json({
-            message: "All users fetched successfully",
-            data: users
-        })
     } catch (error) {
         return res.status(500).json({
             message: "Internal server error",
