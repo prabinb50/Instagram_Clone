@@ -1,50 +1,41 @@
 import { Bookmark, Heart, MessageCircle, MoreHorizontal, Share } from 'lucide-react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 export default function NewsFeedSection() {
 
-    const posts = [
-        {
-            profilePicture: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&",
-            username: "joshiprabin1006",
-            postPicture: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&",
-            caption: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam repudiandae porro sequi autem repellat velit sit quisquam modi aut ut."
-        },
-        {
-            profilePicture: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&",
-            username: "yangma_lama",
-            postPicture: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&",
-            caption: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam repudiandae porro sequi autem repellat velit sit quisquam modi aut ut."
-        },
-        {
-            profilePicture: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&",
-            username: "joshipooja11",
-            postPicture: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&",
-            caption: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam repudiandae porro sequi autem repellat velit sit quisquam modi aut ut."
-        },
-        {
-            profilePicture: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&",
-            username: "joshisapna123",
-            postPicture: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&",
-            caption: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam repudiandae porro sequi autem repellat velit sit quisquam modi aut ut."
-        },
-        {
-            profilePicture: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&",
-            username: "pantkalapna435",
-            postPicture: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&",
-            caption: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam repudiandae porro sequi autem repellat velit sit quisquam modi aut ut."
+    // state to store the posts
+    const [posts, setPosts] = useState(null);
+
+    // fetch the posts from the backend
+    const fetchAllPosts = async () => {
+        try {
+            const response = await axios.get("http://localhost:3000/posts");
+            setPosts(response.data.data);
+            console.log(response, "This is the response from the backend");
+        } catch (error) {
+            console.log("Something went wrong while fetching the posts", error);
         }
-    ]
+    }
+
+    // call the fetchAllPosts function
+    useEffect(() => {
+        fetchAllPosts();
+    }, []);
+
+    // return the posts
+    console.log(posts)
     return (
         <div className='mt-8 space-y-8 px-4 lg:px-20'>
             {
-                posts.map((eachPost, index) => (
+                posts?.map((eachPost, index) => (
                     <div className='space-y-2' key={index}>
                         <div className='flex items-center justify-between cursor-pointer'>
                             {/* single post */}
                             <div className='flex gap-2 items-center'>
-                                <img src={eachPost.profilePicture} alt="" className='h-12 w-12 object-cover rounded-full' />
-                                <p className='font-semibold text-sm'>{eachPost.username} <span className='text-sm opacity-50 font-semibold'>10 mins ago</span></p>
+                                {/* <img src={eachPost.postPicture} alt="" className='h-12 w-12 object-cover rounded-full' /> */}
+                                <div className='h-12 w-12 rounded-full bg-gray-400'></div>
+                                <p>{eachPost.caption} <span className='text-sm opacity-50 font-semibold'>{eachPost.createdAt}</span></p>
                             </div>
                             <MoreHorizontal></MoreHorizontal>
                         </div>

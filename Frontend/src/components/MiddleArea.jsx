@@ -1,66 +1,55 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NewsFeedSection from './NewsFeedSection'
+import axios from 'axios';
 
 export default function MiddleArea() {
 
-    const stories = [
-        {
-            profileImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            storyImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            username: "Prabin_Joshi"
-        },
+    // state to store the stories
+    const [stories, setStories] = useState(null);
 
-        {
-            profileImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            storyImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            username: "Yangma_Lama"
-        },
+    // state to store the fetching status
+    const [isFetching, setIsFetching] = useState(false);
 
-        {
-            profileImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            storyImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            username: "Ritest_Tamang"
-        },
+    // fetch the stories from the backend
+    const fetchAllStories = async () => {
+        try {
+            setIsFetching(true);
+            const response = await axios.get("http://localhost:3000/stories");
+            // console.log(response.data.stories, "This is the response from the backend");
+            setStories(response.data.stories);
+            setIsFetching(false);
+        } catch (error) {
+            setIsFetching(false);
+            console.log("Something went wrong while fetching the stories", error);
+        }
+    }
 
-        {
-            profileImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            storyImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            username: "Loki_Chalaugain"
-        },
+    // call the fetchAllStories function
+    useEffect(() => {
+        fetchAllStories();
+    }, []);
 
-        {
-            profileImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            storyImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            username: "Sapna_Joshi"
-        },
-        {
-            profileImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            storyImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            username: "Pooja_Joshi"
-        },
-        {
-            profileImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            storyImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            username: "Kalpana_Pant"
-        },
-        {
-            profileImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            storyImage: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-            username: "Prabin_Joshi"
-        },
-
-    ]
+    // return the stories and the news feed section
     return (
         < div className='pt-2 md:pt-5'>
             <div className='flex gap-4 overflow-x-scroll px-2 '>
-                {
-                    stories.map((eachStory, index) => (
-                        <div key={index}>
-                            <img src={eachStory.profileImage} alt="" className='rounded-full object-cover h-16 w-16 border-2 border-red-500 p-0.5' />
-                            <p className='text-sm text-center'>{eachStory.username.slice(0, 10)}</p>
-                        </div>
+
+                {isFetching ? (
+                    Array(6).fill().map((eachItem, index) => ( //  show a five pulse loader with array of 6 elements
+                        <div key={index} className='h-16 w-16 bg-gray-300 rounded-full animate-pulse'></div>
                     ))
-                }
+                )
+                    : (
+                        <div>
+                            {
+                                stories?.map((eachStory, index) => (
+                                    <div key={index}>
+                                        <img src={eachStory.storyPicture} alt="" className='rounded-full object-cover h-16 w-16 border-2 border-red-500 p-0.5' />
+                                        <p className='text-sm text-center'>{eachStory.userFullName.slice(0, 10)}</p>
+                                    </div>
+                                ))
+                            }
+                        </div>)}
             </div>
 
             <NewsFeedSection></NewsFeedSection>
