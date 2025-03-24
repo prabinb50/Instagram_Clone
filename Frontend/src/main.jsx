@@ -13,6 +13,7 @@ import ExplorePage from './pages/ExplorePage.jsx';
 import CreatePage from './pages/CreatePage.jsx';
 import LeftSide from './components/LeftSide.jsx';
 import RightSide from './components/RightSide.jsx';
+import ViewPost from './pages/ViewPost.jsx';
 
 export function Root() {
 
@@ -37,6 +38,7 @@ export function Root() {
             <Route path='/reels' element={<ReelsPage></ReelsPage>}></Route>
             <Route path='/explore' element={<ExplorePage></ExplorePage>}></Route>
             <Route path='/create' element={<CreatePage></CreatePage>}></Route>
+            <Route path='/view-post/:id' element={<ViewPost></ViewPost>}></Route>
           </Routes>
         </div>
 

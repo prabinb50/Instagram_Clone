@@ -1,6 +1,7 @@
-import { Bookmark, Heart, MessageCircle, MoreHorizontal, Share } from 'lucide-react'
+import { Bookmark, Eye, Heart, MessageCircle, MoreHorizontal, Share, Trash } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router';
 
 export default function NewsFeedSection() {
 
@@ -23,8 +24,16 @@ export default function NewsFeedSection() {
         fetchAllPosts();
     }, []);
 
+    const deletePost = async (_id) => {
+        try {
+            const response = await axios.delete(`http://localhost:3000/posts/${_id}`);
+            fetchAllPosts();
+        } catch (error) {
+            console.log("Something went wrong while deleting the post", error);
+        }
+    }
+
     // return the posts
-    console.log(posts)
     return (
         <div className='mt-8 space-y-8 px-4 lg:px-20'>
             {
@@ -37,6 +46,10 @@ export default function NewsFeedSection() {
                                 <div className='h-12 w-12 rounded-full bg-gray-400'></div>
                                 <p>{eachPost.caption} <span className='text-sm opacity-50 font-semibold'>{eachPost.createdAt}</span></p>
                             </div>
+                            <Link to={`/view-post/${eachPost._id}`} >
+                                <Eye></Eye>
+                            </Link>
+                            <Trash onClick={() => deletePost(eachPost._id)}></Trash>
                             <MoreHorizontal></MoreHorizontal>
                         </div>
 
