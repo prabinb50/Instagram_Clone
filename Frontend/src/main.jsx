@@ -14,6 +14,7 @@ import CreatePage from './pages/CreatePage.jsx';
 import LeftSide from './components/LeftSide.jsx';
 import RightSide from './components/RightSide.jsx';
 import ViewPost from './pages/ViewPost.jsx';
+import { Toaster } from 'react-hot-toast';
 
 export function Root() {
 
@@ -47,6 +48,7 @@ export function Root() {
         </div>
       </div>
 
+      <Toaster position='bottom-right' />
       <MobileMenu></MobileMenu>
     </StrictMode>
   )
