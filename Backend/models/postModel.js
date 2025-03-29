@@ -7,7 +7,7 @@ const postSchema = new mongoose.Schema({
     likeCount: { type: Number, required: true, default: 0 },
     comments: [
         {
-            commentMessage: { type: String, require: true }
+            commentMessage: { type: String, required: true }
         }
     ],
     createdAt: { type: Date, default: Date.now() },
