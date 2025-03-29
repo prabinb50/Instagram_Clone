@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import NewsFeedSection from './NewsFeedSection'
 import axios from 'axios';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 export default function MiddleArea() {
 
@@ -29,10 +31,13 @@ export default function MiddleArea() {
         fetchAllStories();
     }, []);
 
+    const [currentImage, setCurrentImage] = useState("");
+
+
     // return the stories and the news feed section
     return (
-        < div className='pt-2 md:pt-5'>
-            <div className='flex gap-4 overflow-x-scroll px-2 '>
+        < div className=''>
+            <div className='flex gap-4 overflow-x-scroll px-2 pt-2 md:pt-5'>
 
                 {isFetching ? (
                     Array(6).fill().map((eachItem, index) => ( //  show a five pulse loader with array of 6 elements
@@ -43,10 +48,14 @@ export default function MiddleArea() {
                         <div>
                             {
                                 stories?.map((eachStory, index) => (
-                                    <div key={index}>
-                                        <img src={eachStory.storyPicture} alt="" className='rounded-full object-cover h-16 w-16 border-2 border-red-500 p-0.5' />
-                                        <p className='text-sm text-center'>{eachStory.userFullName.slice(0, 10)}</p>
-                                    </div>
+                                    <Popup contentStyle={{border: "1px solid red"}} onOpen={() => setCurrentImage(eachStory.storyPicture)} modal trigger={
+                                        <div >
+                                            <img src={eachStory.storyPicture} alt="" className='rounded-full object-cover h-16 w-16 border-2 border-red-500 p-0.5' />
+                                            <p className='text-sm text-center'>{eachStory.userFullName.slice(0, 10)}</p>
+                                        </div>
+                                    } position="right center" key={index}>
+                                        <img src={currentImage} alt="" className=' border' />
+                                    </Popup>
                                 ))
                             }
                         </div>)}
