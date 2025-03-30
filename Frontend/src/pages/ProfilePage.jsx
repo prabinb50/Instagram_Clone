@@ -3,6 +3,7 @@ import LeftSide from '../components/LeftSide'
 import { Bookmark, CircleEllipsis, Grid3x3, Heart, MessageCircle, Tag } from 'lucide-react';
 import MobileProfileSection from '../components/MobileProfileSection';
 import UserRegisterCard from '../components/UserRegisterCard';
+import LoginCard from '../components/LoginCard';
 
 export default function ProfilePage() {
 
@@ -159,6 +160,7 @@ export default function ProfilePage() {
             </div>
 
             <UserRegisterCard />
+            <LoginCard></LoginCard>
         </div>
 
     )

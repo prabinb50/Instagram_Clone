@@ -15,7 +15,11 @@ export default function ViewPost() {
 
     const fetchSinglePost = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/posts/${postId}`);
+            const response = await axios.get(`http://localhost:3000/posts/${postId}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("myToken")}`,
+                },
+            });
             console.log(response, "This is the response from the backend");
             setPost(response.data.data);
         } catch (error) {

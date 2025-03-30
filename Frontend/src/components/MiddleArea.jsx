@@ -12,12 +12,18 @@ export default function MiddleArea() {
     // state to store the fetching status
     const [isFetching, setIsFetching] = useState(false);
 
+
     // fetch the stories from the backend
     const fetchAllStories = async () => {
         try {
             setIsFetching(true);
-            const response = await axios.get("http://localhost:3000/stories");
+            const response = await axios.get("http://localhost:3000/stories", {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("myToken")}`,
+                },
+            });
             // console.log(response.data.stories, "This is the response from the backend");
+
             setStories(response.data.stories);
             setIsFetching(false);
         } catch (error) {
@@ -48,7 +54,7 @@ export default function MiddleArea() {
                         <div>
                             {
                                 stories?.map((eachStory, index) => (
-                                    <Popup contentStyle={{border: "1px solid red"}} onOpen={() => setCurrentImage(eachStory.storyPicture)} modal trigger={
+                                    <Popup contentStyle={{ border: "1px solid red" }} onOpen={() => setCurrentImage(eachStory.storyPicture)} modal trigger={
                                         <div >
                                             <img src={eachStory.storyPicture} alt="" className='rounded-full object-cover h-16 w-16 border-2 border-red-500 p-0.5' />
                                             <p className='text-sm text-center'>{eachStory.userFullName.slice(0, 10)}</p>

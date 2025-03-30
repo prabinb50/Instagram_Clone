@@ -11,7 +11,11 @@ export default function NewsFeedSection() {
     // fetch the posts from the backend
     const fetchAllPosts = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/posts");
+            const response = await axios.get("http://localhost:3000/posts", {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("myToken")}`,
+                },
+            });
             setPosts(response.data.data);
             console.log(response, "This is the response from the backend");
         } catch (error) {
